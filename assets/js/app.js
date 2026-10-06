@@ -216,7 +216,7 @@ function initPostcard(){
       ctx.font='500 15px "Golos Text"';ctx.fillText('Речица • 2026 • Связь поколений',W-92,612);setLS('0px');
       /* показ */
       const prev=document.getElementById('pc-preview');
-      prev.src=cv.toDataURL('image/png');prev.hidden=false;
+      if(prev){prev.src=cv.toDataURL('image/png');prev.classList.add('show');}
       document.getElementById('pc-save').hidden=false;
     };
     if(cover.complete&&cover.naturalWidth)draw();else cover.onload=draw;

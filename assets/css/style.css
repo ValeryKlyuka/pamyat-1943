@@ -131,7 +131,6 @@ h2{font-weight:600;color:var(--accent);font-size:clamp(1.15rem,2.4vw,1.45rem);le
 .row{display:flex;gap:10px;flex-wrap:wrap}
 #pc-form button,#quiz-check{font:inherit;font-size:.88rem;font-weight:600;letter-spacing:.06em;background:var(--accent);color:#fff;border:0;padding:11px 22px;border-radius:10px;cursor:pointer;transition:background .2s}
 #pc-form button:hover,#quiz-check:hover{background:var(--accent-2)}
-#pc-preview{display:block;margin:18px auto 0;max-width:min(920px,100%);border-radius:14px;border:1px solid rgba(216,178,106,.35);box-shadow:0 14px 34px rgba(10,7,4,.5)}
 .pc-save-row{justify-content:center;margin-top:14px}
 .pc-save-row button{font:inherit;font-size:.9rem;font-weight:600;letter-spacing:.06em;background:var(--accent);color:#fff;border:0;padding:12px 28px;border-radius:999px;cursor:pointer;transition:background .2s;box-shadow:0 8px 20px rgba(122,79,44,.35)}
 .pc-save-row button:hover{background:var(--accent-2)}
@@ -198,3 +197,6 @@ footer .wrap p{margin:4px 0}
 .about-goal{border-left:3px solid var(--accent);background:linear-gradient(90deg,rgba(216,178,106,.14),rgba(216,178,106,.03));border-radius:0 12px 12px 0;padding:14px 18px;margin-bottom:1.4rem}
 .about-goal p{margin:0;text-align:left;hyphens:none;line-height:1.7}
 .about-org{text-align:center;font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft,#6b5d4f);padding-top:1rem;border-top:1px solid var(--line)}
+#pc-preview{display:none;margin:18px auto 0;max-width:min(920px,100%);border-radius:14px;border:1px solid rgba(216,178,106,.35);box-shadow:0 14px 34px rgba(10,7,4,.5)}
+#pc-preview.show{display:block}
+#pc-canvas{display:none !important}
