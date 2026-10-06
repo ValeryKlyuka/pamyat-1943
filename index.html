@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Связь поколений | Речицкая земля</title>
+<meta name="description" content="Интерактивное веб-приложение исторической памяти: хроника освобождения Речицы, герои-земляки, карта мемориалов, открытка герою, викторина.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Golos+Text:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<nav class="nav">
+  <div class="nav__in">
+    <a href="#home" data-view="home">Главная</a>
+    <a href="#chronicle" data-view="chronicle">Хроника</a>
+    <a href="#people" data-view="people">Люди</a>
+    <a href="#memory" data-view="memory">Карта памяти</a>
+    <a href="#postcard" data-view="postcard">Открытка герою</a>
+    <a href="#quiz" data-view="quiz">Викторина</a>
+    <a href="#about" data-view="about">О проекте</a>
+  </div>
+</nav>
+<main>
+  <section id="home" class="view">
+    <div class="stage">
+      <h1 class="stage__title">Связь поколений</h1>
+      <div class="stage__star" aria-hidden="true"><span class="line"></span><span class="star">★</span><span class="line flip"></span></div>
+      <p class="stage__place">Речицкая земля</p>
+      <div class="stage__card">
+        <p>Интерактивное веб-приложение исторической памяти: хроника освобождения Речицы 18 ноября 1943 года, герои-земляки и освободители, карта мемориалов района, открытка герою и викторина для классных часов.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="chronicle" class="view">
+    <div class="panel panel--chronicle">
+      <div class="chr-motifs" id="chr-motifs" aria-hidden="true"></div>
+      <h2>Хроника: от оккупации к освобождению</h2>
+      <div class="chr-ribbon" id="chr-ribbon"></div>
+      <div class="chr-detail" id="chr-detail"></div>
+      <div class="chr-controls">
+        <button id="chr-auto" type="button">▶ Автопоказ</button>
+        <div class="chr-progress"><i id="chr-progress"></i></div>
+      </div>
+      <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+        <symbol id="star5" viewBox="0 0 100 100"><path d="M50,4 61.8,38.2 97.9,38.2 68.9,59.8 79.9,94 50,73 20.1,94 31.1,59.8 2.1,38.2 38.2,38.2 Z" fill="currentColor" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/></symbol>
+        <symbol id="motif-dawn" viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M20,150 H180"/><path d="M100,150 L40,64 M100,150 L70,42 M100,150 L100,30 M100,150 L130,42 M100,150 L160,64"/><path d="M52,78 l18,6 -18,6 M128,58 l18,6 -18,6"/></symbol>
+        <symbol id="motif-wire" viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M15,100 q17,-16 34,0 t34,0 t34,0 t34,0 t34,0"/><path d="M40,90 L52,110 M52,90 L40,110 M88,90 L100,110 M100,90 L88,110 M136,90 L148,110 M148,90 L136,110"/></symbol>
+        <symbol id="motif-forest" viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M55,165 V95 M55,100 l-16,20 M55,100 l16,20 M55,120 l-20,24 M55,120 l20,24 M55,140 l-24,28 M55,140 l24,28"/><path d="M115,165 V115 M115,118 l-12,16 M115,118 l12,16 M115,134 l-15,19 M115,134 l15,19"/><path d="M160,55 l5,13 13,5 -13,5 -5,13 -5,-13 -13,-5 13,-5 z"/></symbol>
+        <symbol id="motif-arrows" viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M30,155 C70,145 95,115 125,92 M125,92 l-17,3 M125,92 l-5,16"/><path d="M55,175 C95,165 125,135 158,108 M158,108 l-17,3 M158,108 l-5,16"/><path d="M85,60 C105,54 125,50 148,44 M148,44 l-15,0 M148,44 l-6,12"/></symbol>
+        <symbol id="motif-rails" viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M20,82 H82 M118,82 H180 M20,118 H82 M118,118 H180"/><path d="M30,76 V124 M46,76 V124 M62,76 V124 M78,76 V124 M122,76 V124 M138,76 V124 M154,76 V124 M170,76 V124"/><path d="M82,82 L96,100 82,118 M118,82 L104,100 118,118"/></symbol>
+        <symbol id="motif-road" viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M45,185 C65,145 35,120 65,90 C95,60 75,40 100,18"/><path d="M78,185 C98,145 68,120 98,90 C128,60 108,40 133,18"/><path d="M76,150 h6 M84,118 h6 M76,92 h6 M96,62 h6" stroke-width="5"/></symbol>
+        <symbol id="motif-salute" viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M100,192 L42,66 M100,192 L72,44 M100,192 L100,32 M100,192 L128,44 M100,192 L158,66"/><path d="M42,50 v16 M34,58 h16 M72,28 v16 M64,36 h16 M100,16 v16 M92,24 h16 M128,28 v16 M120,36 h16 M158,50 v16 M150,58 h16"/></symbol>
+        <symbol id="motif-banner" viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M60,18 V182"/><path d="M60,28 C92,18 112,38 152,28 L152,82 C112,92 92,72 60,82 Z"/><path d="M106,44 l4.7,13.8 14.5,0 -11.7,8.6 4.4,13.9 -11.9,-8.5 -11.9,8.5 4.4,-13.9 -11.7,-8.6 14.5,0 z"/></symbol>
+        <symbol id="motif-city" viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M20,140 V102 H38 V122 H52 V92 H72 V140 M72,140 V112 H92 V140"/><path d="M104,140 q18,-26 36,0 q18,-26 36,0"/><path d="M20,152 H180 M34,162 H166"/></symbol>
+        <symbol id="motif-flame" viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M86,112 h28 v58 h-28 z"/><path d="M100,58 c11,15 17,25 17,35 a17,17 0 0 1 -34,0 c0,-10 6,-20 17,-35 z"/><path d="M28,176 l20,-26 13,17 M142,176 l20,-26 13,17"/></symbol>
+      </svg>
+    </div>
+  </section>
+
+<section id="people" class="view">
+  <div class="panel panel--people">
+    <h2>Люди</h2>
+    <div class="ppl-filters" id="filters">
+      <button data-f="all" class="on">Все</button>
+      <button data-f="native">Уроженцы района</button>
+      <button data-f="liberator">Освободители города</button>
+    </div>
+    <div class="ppl-layout">
+      <div class="ppl-grid" id="ppl-grid"></div>
+      <div class="ppl-detail" id="ppl-detail"></div>
+    </div>
+  </div>
+</section>
+
+  <section id="memory" class="view">
+    <div class="panel">
+      <h2>Карта памяти</h2>
+      <div id="map"></div>
+      <p class="note">Нажмите на маркер — паспорт объекта памяти и фото.</p>
+    </div>
+  </section>
+
+  <section id="postcard" class="view">
+  <div class="panel">
+    <h2>Открытка герою</h2>
+    <p class="note">Напишите слова благодарности — приложение соберёт открытку, которую можно сохранить и поделиться.</p>
+    <form id="pc-form">
+      <input id="pc-to" placeholder="Кому (имя, часть, соединение)" maxlength="60">
+      <textarea id="pc-text" placeholder="Ваши слова благодарности…" maxlength="220"></textarea>
+      <input id="pc-from" placeholder="От кого (имя, класс)" maxlength="60">
+      <div class="row"><button type="button" id="pc-make">Создать открытку</button></div>
+    </form>
+    <canvas id="pc-canvas" width="1200" height="675" hidden></canvas>
+    <img id="pc-preview" alt="Предпросмотр открытки" hidden>
+    <div class="row pc-save-row"><button type="button" id="pc-save" hidden>Сохранить открытку</button></div>
+  </div>
+</section>
+
+<section id="quiz" class="view">
+  <div class="panel panel--quiz">
+    <h2>Викторина</h2>
+    <div id="quizbox"></div>
+  </div>
+</section>
+
+  <section id="about" class="view">
+  <div class="panel about">
+    <h2>О проекте</h2>
+
+    <p class="about-lead">Веб-приложение «Связь поколений | Речицкая земля» — интерактивная платформа исторической памяти: хроника освобождения Речицы 18 ноября 1943 года, карточки героев-земляков и освободителей, карта мемориалов района, генератор интерактивных открыток и викторина для уроков и классных часов.</p>
+
+    <p>Документальные портреты маршалов Рокоссовского и Батова, а также вице-адмирала Холостякова опираются на опубликованные архивные изображения; визуальные образы героев М. П. Сыдько и А. К. Васильева и символические композиции, связанные с ними, выполнены как художественная интерпретация по мотивам архивной кинофотохроники Великой Отечественной войны, поскольку документальные свободные портреты этих лиц и частей в открытых источниках не сохранились.</p>
+
+    <div class="about-grid">
+      <div class="about-card">
+        <div class="label">Учащаяся</div>
+        <div class="name">Богатырёва Евдокия Николаевна</div>
+        <div class="sub">10 «В» класс</div>
+      </div>
+      <div class="about-card">
+        <div class="label">Руководитель</div>
+        <div class="name">Клюка Валерий Игоревич</div>
+        <div class="sub">учитель физики</div>
+      </div>
+    </div>
+
+    <div class="about-goal">
+      <div class="label">Цель</div>
+      <p>Сохранение исторической памяти об освобождении Речицкой земли через интерактивные веб-технологии; связь поколений через диалог «школьник — история семьи — мемориал».</p>
+    </div>
+
+    <div class="about-org">Государственное учреждение образования «Речицкий районный лицей»</div>
+  </div>
+</section>
+</main>
+<footer>
+  <div class="wrap">
+    <p id="sources"></p>
+    <p>© 2026 ГУО «Речицкий районный лицей». Учащаяся: <span id="author"></span>. Руководитель: <span id="mentor"></span>.</p>
+  </div>
+</footer>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>
